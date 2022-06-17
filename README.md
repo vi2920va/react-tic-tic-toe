@@ -37,4 +37,4 @@ $ yarn run start
 
 ## 4. 🔗 배포 링크
 
-- [배포링크 바로가기](https://git.heroku.com/slogup-tic-tac-toe.git)
+- [배포링크 바로가기](https://slogup-tic-tac-toe.herokuapp.com/)
