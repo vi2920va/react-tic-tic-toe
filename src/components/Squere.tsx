@@ -1,8 +1,9 @@
 import React from "react";
+import { Value } from "./Board";
 import styled from "styled-components";
 
 interface SquereProps {
-  value: number | string;
+  value: Value;
   onClick: (i: React.MouseEvent<HTMLButtonElement>) => void;
 }
 

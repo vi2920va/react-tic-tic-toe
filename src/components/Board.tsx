@@ -2,29 +2,22 @@ import React, { useState } from "react";
 import Squere from "./Squere";
 import styled from "styled-components";
 
-export type Value = "X" | "O";
+export type Value = "X" | "O" | null;
+
 export type BoardState = Value[];
 
+export interface GameState {
+  history: BoardState[];
+  step: number;
+}
+
 const Board: React.FC = () => {
-  const [squares, setSquares] = useState<BoardState>(Array(9).fill(null));
-  const [isNext, setIsNext] = useState(false);
+  const createBoardState = () => Array<Value>(9).fill(null);
 
-  const handleButtonPross = (i: number) => {
-    const boards = [...squares];
-    boards[i] = "X";
-
-    setSquares(boards);
-    setIsNext(true);
-    if (isNext) {
-      boards[i] = "O";
-      setSquares(boards);
-      setIsNext(false);
-    }
-  };
-
-  const renderSquare = (i: number) => {
-    return <Squere onClick={() => handleButtonPross(i)} value={squares[i]} />;
-  };
+  const [gameState, setGameState] = useState<GameState>({
+    history: [createBoardState()],
+    step: 0,
+  });
 
   const calculateWinner = (boardState: BoardState) => {
     const winningCombinations = [
@@ -46,13 +39,34 @@ const Board: React.FC = () => {
       ) {
         return boardState[a];
       }
-      return null;
     }
+    return null;
   };
 
+  const current = gameState.history[gameState.step];
+  const isNext = gameState.step % 2 === 0;
+  const winner = calculateWinner(current);
+
+  const handleButtonPress = (i: number) => {
+    const history = gameState.history.slice(0, gameState.step + 1);
+    const newBoardState = gameState.history[gameState.history.length - 1];
+    newBoardState[i] = gameState.step % 2 === 0 ? "X" : "O";
+    history.push(newBoardState);
+
+    setGameState({
+      history,
+      step: history.length - 1,
+    });
+  };
+
+  const renderSquare = (i: number) => {
+    return <Squere onClick={() => handleButtonPress(i)} value={current[i]} />;
+  };
   return (
     <div>
-      <StyledStats className="start">Next player : X</StyledStats>
+      <StyledStats className="start">
+        {winner ? `Winner ${winner}` : `Next player : ${isNext ? "X" : "O"}`}
+      </StyledStats>
       <StyleRow className="board-row">
         {renderSquare(0)}
         {renderSquare(1)}
@@ -71,6 +85,7 @@ const Board: React.FC = () => {
     </div>
   );
 };
+
 export default Board;
 
 const StyledStats = styled.h1`
@@ -79,6 +94,6 @@ const StyledStats = styled.h1`
   text-align: center;
 `;
 
-export const StyleRow = styled.div`
+const StyleRow = styled.div`
   display: flex;
 `;
