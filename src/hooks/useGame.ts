@@ -59,20 +59,28 @@ const useGame = () => {
     });
   };
 
-  const jumpTo = (i: number) => {
-    console.log("jumpTo his ->", gameState.history);
+  const handleButtonReset = ()=> {
+    setGameState({
+      history :[createBoardState()],
+      step:0,
+    })
+  };
 
+  const jumpTo = (i: number) => {
     setGameState({
       history: gameState.history,
       step: i,
     });
   };
+
+
   return {
     gameState,
     current,
     isNext,
     winner,
     handleButtonPress,
+    handleButtonReset,
     jumpTo,
   };
 };

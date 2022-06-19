@@ -4,16 +4,19 @@ import { BoardState } from "../hooks/useGame";
 interface LogProps {
   history: BoardState[];
   jumpTo: (i: number) => void;
+  onClick: () => void;
 }
-const Log: React.FC<LogProps> = ({ history, jumpTo }) => {
+const Log: React.FC<LogProps> = ({ history, jumpTo, onClick }) => {
   return (
     <ul>
       {history.map((_, index) => {
         return (
           <li key={index}>
-            <button onClick={() => jumpTo(index)}>
-              Go to {index === 0 ? "start" : `move #${index}`}
-            </button>
+            {index === 0 ? (
+              <button onClick={onClick}>Go to start</button>
+            ) : (
+              <button onClick={() => jumpTo(index)}>Move #{index}</button>
+            )}
           </li>
         );
       })}

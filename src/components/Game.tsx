@@ -5,7 +5,7 @@ import Log from "./Log";
 import styled from "styled-components";
 
 const Game: React.FC = () => {
-  const { gameState, current, isNext, jumpTo, winner, handleButtonPress } =
+  const { gameState, current, isNext, jumpTo, winner, handleButtonPress, handleButtonReset } =
     useGame();
   return (
     <StyledRow gap={20}>
@@ -15,7 +15,7 @@ const Game: React.FC = () => {
         </StyledTitle>
         <Board board={current} onClick={handleButtonPress} />
       </StyledCol>
-      <Log history={gameState.history} jumpTo={jumpTo} />
+      <Log history={gameState.history} jumpTo={jumpTo} onClick={handleButtonReset} />
     </StyledRow>
   );
 };
