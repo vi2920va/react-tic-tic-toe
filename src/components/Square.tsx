@@ -1,19 +1,19 @@
 import React from "react";
-import { Value } from "./Board";
+import { Value } from "../hooks/useGame";
 import styled from "styled-components";
 
-interface SquereProps {
+interface SquareProps {
   value: Value;
   onClick: (i: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Squere: React.FC<SquereProps> = ({ onClick, value }) => {
-  return <StyledSqureBtn onClick={onClick}>{value}</StyledSqureBtn>;
+const Square: React.FC<SquareProps> = ({ onClick, value }) => {
+  return <StyledSquareBtn onClick={onClick}>{value}</StyledSquareBtn>;
 };
 
-export default Squere;
+export default Square;
 
-const StyledSqureBtn = styled.button`
+const StyledSquareBtn = styled.button`
   width: 95px;
   height: 95px;
   padding: 0;
