@@ -43,10 +43,11 @@ const useGame = () => {
   const current = gameState.history[gameState.step];
   const isNext = gameState.step % 2 === 0;
   const winner = calculateWinner(current);
-
+  
   const handleButtonPress = (i: number) => {
     const history = gameState.history.slice(0, gameState.step + 1);
     const boardState = gameState.history[gameState.history.length - 1];
+
     if (calculateWinner(boardState) || boardState[i]) {
       return;
     }
@@ -59,11 +60,11 @@ const useGame = () => {
     });
   };
 
-  const handleButtonReset = ()=> {
+  const handleButtonReset = () => {
     setGameState({
-      history :[createBoardState()],
-      step:0,
-    })
+      history: [createBoardState()],
+      step: 0,
+    });
   };
 
   const jumpTo = (i: number) => {
@@ -72,7 +73,6 @@ const useGame = () => {
       step: i,
     });
   };
-
 
   return {
     gameState,
